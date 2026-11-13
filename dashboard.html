@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — Freelanzo</title>
+  <meta name="description" content="Your private Freelanzo account dashboard.">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="dashboard">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-menu" id="nav-menu" aria-label="Main">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="explore.html">Explore Freelancers</a>
+        <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+        <a class="nav-link" data-auth="guest" href="login.html">Login</a>
+        <a class="btn btn--primary btn--sm" data-auth="guest" href="signup.html">Sign Up</a>
+        <a class="nav-link" href="dashboard.html" data-auth="user" aria-current="page" hidden>Dashboard</a>
+        <button class="btn btn--secondary btn--sm" data-action="logout" data-auth="user" type="button" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="dashboard-main">
+    <div class="container">
+      <div id="dashboard-loading" class="dashboard-loading" role="status" aria-live="polite">
+        <h1>Loading your account…</h1>
+        <p>Checking your sign-in status and account information.</p>
+      </div>
+
+      <div id="dashboard-content" hidden>
+        <div class="dashboard-heading">
+          <div>
+            <p class="dashboard-eyebrow">Your account</p>
+            <h1 id="dashboard-welcome">Welcome!</h1>
+            <p>This is your private Freelanzo dashboard.</p>
+          </div>
+          <button type="button" class="btn btn--secondary" data-action="logout">Log out</button>
+        </div>
+        <div class="dashboard-grid">
+          <section class="dashboard-card" aria-labelledby="account-overview-title">
+            <h2 id="account-overview-title">Account overview</h2>
+            <dl class="account-details">
+              <div><dt>Full name</dt><dd id="dashboard-name">—</dd></div>
+              <div><dt>Email</dt><dd id="dashboard-email">—</dd></div>
+              <div><dt>Account type</dt><dd id="dashboard-role">—</dd></div>
+              <div><dt>Portfolio status</dt><dd id="dashboard-completion">—</dd></div>
+            </dl>
+          </section>
+          <section id="freelancer-panel" class="dashboard-card" hidden aria-labelledby="freelancer-title">
+            <h2 id="freelancer-title">Freelancer workspace</h2>
+            <p>Your account is ready. Public portfolio creation and project editing will be introduced in Phase 3.</p>
+            <p class="notice">Current Explore listings are fictional samples, not accounts like yours.</p>
+            <a href="explore.html" class="btn btn--primary">Explore sample profiles</a>
+          </section>
+          <section id="client-panel" class="dashboard-card" hidden aria-labelledby="client-title">
+            <h2 id="client-title">Client workspace</h2>
+            <p>Discover the layout of freelancer listings now. Real public freelancer portfolios will arrive in Phase 3.</p>
+            <p class="notice">The current freelancer profiles are fictional samples; contacting them is unavailable.</p>
+            <a href="explore.html" class="btn btn--primary">Explore freelancers</a>
+          </section>
+        </div>
+        <p class="dashboard-footnote">Messaging, portfolio editing, payments and reviews are not active in Phase 2.</p>
+      </div>
+
+      <section id="dashboard-recovery" class="auth-card dashboard-recovery" hidden aria-labelledby="recovery-title">
+        <h1 id="recovery-title">Finish your account setup</h1>
+        <p>Your Firebase login exists, but your Firestore account record is missing. Save it here without registering again.</p>
+        <p class="notice">Signed in as <strong id="recovery-email"></strong></p>
+        <form id="recovery-form" novalidate>
+          <div class="field">
+            <label for="recovery-name">Full name</label>
+            <input class="input" id="recovery-name" maxlength="80" required autocomplete="name">
+          </div>
+          <fieldset class="field">
+            <legend>I want to join as</legend>
+            <div class="radio-cards">
+              <label class="radio-card"><input type="radio" name="recovery-role" value="freelancer"><span>Freelancer<small>Showcase my work</small></span></label>
+              <label class="radio-card"><input type="radio" name="recovery-role" value="client"><span>Client<small>Find talent</small></span></label>
+            </div>
+          </fieldset>
+          <p id="recovery-status" class="form-status" role="status"></p>
+          <button type="submit" class="btn btn--primary btn--block">Finish account setup</button>
+        </form>
+        <p class="auth-alt">If saving fails, publish <code>firestore.rules</code> and try again.</p>
+        <button type="button" class="btn btn--secondary btn--block" data-action="logout">Log out</button>
+      </section>
+
+      <section id="dashboard-error" class="dashboard-card dashboard-error" hidden aria-labelledby="dashboard-error-title">
+        <h1 id="dashboard-error-title">We couldn't open your account</h1>
+        <p id="dashboard-error-text"></p>
+        <a class="btn btn--primary" href="dashboard.html">Retry</a>
+        <button type="button" class="btn btn--secondary" data-action="logout">Log out</button>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div id="about">
+          <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+          <p style="margin-top:1rem;max-width:28rem">Freelanzo is a portfolio platform where freelancers showcase their work and clients find the right person for the job. It is a college club project, built in phases.</p>
+        </div>
+        <nav aria-label="Quick links">
+          <h2>Quick links</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore Freelancers</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li data-auth="guest"><a href="login.html">Login</a></li>
+            <li data-auth="guest"><a href="signup.html">Sign Up</a></li>
+            <li data-auth="user" hidden><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </nav>
+        <div id="contact">
+          <h2>Contact</h2>
+          <p>Questions or feedback? Reach the club team through your college&rsquo;s club channel. Official contact details will be added before launch.</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span id="year">2026</span> Freelanzo. A college club project.</span>
+        <span>Phase 2: real accounts · sample freelancer listings</span>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="js/auth-state.js"></script>
+  <script type="module" src="js/dashboard.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

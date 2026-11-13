@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="login">
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -23,8 +23,10 @@
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="explore.html">Explore Freelancers</a>
         <a class="nav-link" href="index.html#how-it-works">How It Works</a>
-        <a class="nav-link" href="login.html" aria-current="page">Login</a>
-        <a class="btn btn--primary btn--sm" href="signup.html">Sign Up</a>
+        <a class="nav-link" data-auth="guest" href="login.html" aria-current="page">Login</a>
+        <a class="btn btn--primary btn--sm" data-auth="guest" href="signup.html">Sign Up</a>
+        <a class="nav-link" href="dashboard.html" data-auth="user" hidden>Dashboard</a>
+        <button class="btn btn--secondary btn--sm" data-action="logout" data-auth="user" type="button" hidden>Log out</button>
       </nav>
     </div>
   </header>
@@ -32,8 +34,8 @@
   <main id="main" class="auth-wrap">
     <section class="auth-card" aria-labelledby="login-title">
       <h1 id="login-title">Welcome back</h1>
-      <p>Log in to manage your portfolio and messages.</p>
-      <p class="field-hint" style="margin:-0.5rem 0 1.25rem">Phase 1 preview: login checks your entries but is not connected to accounts yet.</p>
+      <p>Log in to access your Freelanzo dashboard.</p>
+      <p class="field-hint" style="margin:-0.5rem 0 1.25rem">Real Firebase login is enabled. Portfolio editing and messaging are coming in later phases.</p>
       <form id="login-form" novalidate>
         <div class="field">
           <label for="login-email">Email address</label>
@@ -69,8 +71,9 @@
             <li><a href="explore.html">Explore Freelancers</a></li>
             <li><a href="index.html#how-it-works">How It Works</a></li>
             <li><a href="index.html#about">About</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="signup.html">Sign Up</a></li>
+            <li data-auth="guest"><a href="login.html">Login</a></li>
+            <li data-auth="guest"><a href="signup.html">Sign Up</a></li>
+            <li data-auth="user" hidden><a href="dashboard.html">Dashboard</a></li>
           </ul>
         </nav>
         <div id="contact">
@@ -80,11 +83,12 @@
       </div>
       <div class="footer__bottom">
         <span>&copy; <span id="year">2026</span> Freelanzo. A college club project.</span>
-        <span>Phase 1: frontend preview with sample data</span>
+        <span>Phase 2: real accounts · sample freelancer listings</span>
       </div>
     </div>
   </footer>
-  <script src="js/auth.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/auth-state.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign up — Freelanzo</title>
+  <meta name="description" content="Create a Freelanzo account as a freelancer or client.">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="signup">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-menu" id="nav-menu" aria-label="Main">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="explore.html">Explore Freelancers</a>
+        <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+        <a class="nav-link" data-auth="guest" href="login.html">Login</a>
+        <a class="btn btn--primary btn--sm" data-auth="guest" href="signup.html" aria-current="page">Sign Up</a>
+        <a class="nav-link" href="dashboard.html" data-auth="user" hidden>Dashboard</a>
+        <button class="btn btn--secondary btn--sm" data-action="logout" data-auth="user" type="button" hidden>Log out</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="auth-wrap">
+    <section class="auth-card" aria-labelledby="signup-title">
+      <h1 id="signup-title">Create your account</h1>
+      <p>Join Freelanzo as a freelancer or a client.</p>
+      <p class="field-hint" style="margin:-0.5rem 0 1.25rem">Create a real Freelanzo account using Firebase. Your portfolio will be added in Phase 3.</p>
+      <form id="signup-form" novalidate>
+        <div class="field">
+          <label for="signup-name">Full name</label>
+          <input class="input" id="signup-name" name="name" type="text" autocomplete="name" required aria-describedby="signup-name-error">
+          <p class="field-error" id="signup-name-error"></p>
+        </div>
+        <div class="field">
+          <label for="signup-email">Email address</label>
+          <input class="input" id="signup-email" name="email" type="email" autocomplete="email" required aria-describedby="signup-email-error">
+          <p class="field-error" id="signup-email-error"></p>
+        </div>
+        <div class="field">
+          <label for="signup-password">Password</label>
+          <div class="input-group">
+            <input class="input" id="signup-password" name="password" type="password" autocomplete="new-password" required aria-describedby="signup-password-hint signup-password-error">
+            <button class="toggle-pw" type="button" data-target="signup-password" data-label="password" aria-label="Show password">Show</button>
+          </div>
+          <p class="field-hint" id="signup-password-hint">At least 8 characters, with a letter and a number.</p>
+          <p class="field-error" id="signup-password-error"></p>
+        </div>
+        <div class="field">
+          <label for="signup-confirm">Confirm password</label>
+          <div class="input-group">
+            <input class="input" id="signup-confirm" name="confirm" type="password" autocomplete="new-password" required aria-describedby="signup-confirm-error">
+            <button class="toggle-pw" type="button" data-target="signup-confirm" data-label="confirmation password" aria-label="Show confirmation password">Show</button>
+          </div>
+          <p class="field-error" id="signup-confirm-error"></p>
+        </div>
+        <fieldset class="field" aria-describedby="signup-type-error">
+          <legend>I want to join as</legend>
+          <div class="radio-cards">
+            <label class="radio-card"><input type="radio" name="account-type" value="freelancer"><span>Freelancer<small>Showcase my work</small></span></label>
+            <label class="radio-card"><input type="radio" name="account-type" value="client"><span>Client<small>Find talent</small></span></label>
+          </div>
+          <p class="field-error" id="signup-type-error"></p>
+        </fieldset>
+        <div class="field">
+          <label class="check" for="signup-terms" style="font-weight:400">
+            <input type="checkbox" id="signup-terms" name="terms" aria-describedby="signup-terms-error">
+            <span>I understand this is a college project demo and my account details will be stored securely in Firebase for testing.</span>
+          </label>
+          <p class="field-error" id="signup-terms-error"></p>
+        </div>
+        <p class="form-status" role="status"></p>
+        <button class="btn btn--primary btn--block" type="submit">Sign up</button>
+      </form>
+      <p class="auth-alt">Already have an account? <a href="login.html">Log in</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div id="about">
+          <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+          <p style="margin-top:1rem;max-width:28rem">Freelanzo is a portfolio platform where freelancers showcase their work and clients find the right person for the job. It is a college club project, built in phases.</p>
+        </div>
+        <nav aria-label="Quick links">
+          <h2>Quick links</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore Freelancers</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li data-auth="guest"><a href="login.html">Login</a></li>
+            <li data-auth="guest"><a href="signup.html">Sign Up</a></li>
+            <li data-auth="user" hidden><a href="dashboard.html">Dashboard</a></li>
+          </ul>
+        </nav>
+        <div id="contact">
+          <h2>Contact</h2>
+          <p>Questions or feedback? Reach the club team through your college&rsquo;s club channel. Official contact details will be added before launch.</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span id="year">2026</span> Freelanzo. A college club project.</span>
+        <span>Phase 2: real accounts · sample freelancer listings</span>
+      </div>
+    </div>
+  </footer>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/auth-state.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

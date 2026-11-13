@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Only a signed-in user may access their own private account document.
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    function validAccount(data, uid) {
+      return data.keys().hasAll(['uid', 'fullName', 'email', 'role', 'createdAt', 'profileCompleted'])
+        && data.keys().hasOnly(['uid', 'fullName', 'email', 'role', 'createdAt', 'profileCompleted'])
+        && data.uid is string && data.uid == uid
+        && data.email is string && data.email == request.auth.token.email
+        && data.fullName is string && data.fullName.size() >= 2 && data.fullName.size() <= 80
+        && data.role is string && data.role in ['freelancer', 'client']
+        && data.createdAt is timestamp
+        && data.profileCompleted is bool;
+    }
+
+    match /users/{uid} {
+      allow get: if isOwner(uid);
+      allow list: if false;
+
+      allow create: if isOwner(uid)
+        && validAccount(request.resource.data, uid)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.profileCompleted == false;
+
+      // Phase 2 only permits name edits. UID, email, role, creation date and
+      // profile completion stay immutable until a later phase introduces them.
+      allow update: if isOwner(uid)
+        && validAccount(request.resource.data, uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fullName']);
+      allow delete: if false;
+    }
+
+    // All other Firestore collections are private / disabled in Phase 2.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
