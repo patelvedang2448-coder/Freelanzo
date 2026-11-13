@@ -14,7 +14,8 @@ Freelanzo_Phase_2/
 ├── login.html, signup.html, dashboard.html
 ├── css/style.css
 ├── js/firebase-config.js   # one-time Firebase initialization
-├── js/auth.js              # signup/login + original form validation
+├── js/auth.js              # signup/login, Firebase integration + validation
+├── js/auth-ui.js           # independent Show/Hide password controls and setup messages
 ├── js/auth-state.js        # navigation, protected-page redirects, logout
 ├── js/dashboard.js         # Firestore account details / interrupted signup recovery
 ├── js/main.js              # original common behaviour
@@ -118,3 +119,19 @@ These are **manual Firebase checks**, NOT claims that the downloaded project has
 - **Phase 3:** Real public freelancer profiles and portfolio CRUD with separate public/profile rules.
 - **Phase 4:** Two-way Firestore messaging and secure participant-only conversations.
 - **Phase 5:** Integration testing, UX polish and deployment.
+
+## Phase 2 signup / Show-password hotfix
+
+The password Show/Hide buttons are now implemented by plain `js/auth-ui.js`, so they remain functional even when Firebase fails to load. Firebase modules are loaded only when the login/signup form is submitted, allowing the form to report network/CDN failures rather than silently failing.
+
+If you cannot register:
+
+1. **Run on Live Server**: use `http://localhost:5500/signup.html` (actual port may differ). **Do not open `file://.../signup.html`**.
+2. Go to **Authentication → Sign-in method** and confirm **Email/Password** is ON.
+3. Go to **Firestore Database → Rules**, paste `firestore.rules` and click **Publish**.
+4. If hosted online, add your **exact hosting domain** to **Authentication → Settings → Authorized domains**.
+5. Fill in all fields, select **Freelancer** or **Client**, and tick the checkbox. Use a password of 8+ characters containing a letter and a number.
+6. The signup form will now show a specific error. If a Firebase Auth account was created before Firestore failed, use **Dashboard → Finish account setup** rather than registering again with the same email.
+7. If it still fails, open the browser console with **F12 → Console** and copy the **red error** (do not send any passwords).
+
+The included automated browser tests use a *mock Firebase SDK*, not your live Firebase account; browser-side behavior was verified, but real Firebase registration must be tested in your project.
