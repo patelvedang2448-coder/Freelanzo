@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freelanzo — Your Talent. Your Portfolio. Your Opportunities.</title>
+  <meta name="description" content="Freelanzo is a portfolio platform where freelancers showcase their work and clients discover talent.">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="navbar">
+    <div class="container navbar__inner">
+      <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-menu" id="nav-menu" aria-label="Main">
+        <a class="nav-link" href="index.html" aria-current="page">Home</a>
+        <a class="nav-link" href="explore.html">Explore Freelancers</a>
+        <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+        <a class="nav-link" href="login.html">Login</a>
+        <a class="btn btn--primary btn--sm" href="signup.html">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div>
+          <h1 id="hero-title">Your Talent. Your Portfolio. Your Opportunities.</h1>
+          <p class="hero__lead">Freelanzo gives freelancers a professional home for their work, and gives clients a simple way to find the right person for a project.</p>
+          <div class="hero__ctas">
+            <a class="btn btn--primary" href="explore.html">Explore Freelancers</a>
+            <a class="btn btn--secondary" href="signup.html">Get Started</a>
+          </div>
+          <p class="hero__note">Phase 1 preview: the profiles you will see are sample data.</p>
+        </div>
+        <div class="mock" role="img" aria-label="Illustration of a freelancer portfolio page with three project thumbnails">
+          <div class="mock__window" aria-hidden="true">
+            <div class="mock__bar"><i></i><i></i><i></i></div>
+            <div class="mock__body">
+              <div class="mock__who">
+                <div class="avatar tone-1">AM</div>
+                <div><strong>Your name here</strong><span>Your professional title</span></div>
+              </div>
+              <div class="mock__tiles">
+                <div class="tile tile--a tone-1"><span class="tile__label">Project one</span></div>
+                <div class="tile tile--b tone-2"></div>
+                <div class="tile tile--c tone-3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mock__float mock__float--a" aria-hidden="true">Open to projects<small>Illustration only</small></div>
+          <div class="mock__float mock__float--b" aria-hidden="true">Your best work</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" aria-labelledby="search-title">
+      <div class="search-panel reveal">
+        <h2 id="search-title">Find a freelancer</h2>
+        <p>Search by name or skill, or start from a popular skill below.</p>
+        <form class="search-form" id="home-search" action="explore.html" method="get" role="search">
+          <label class="visually-hidden" for="home-query">Search freelancers by name or skill</label>
+          <input id="home-query" name="q" type="search" placeholder="Try &ldquo;Figma&rdquo; or &ldquo;Aarav&rdquo;" autocomplete="off" maxlength="80">
+          <button class="btn btn--primary" type="submit">Search</button>
+        </form>
+        <div class="chip-row">
+          <span class="search-panel__label">Popular skills:</span>
+          <a class="chip" href="explore.html?q=JavaScript">JavaScript</a><a class="chip" href="explore.html?q=Figma">Figma</a><a class="chip" href="explore.html?q=Logo%20design">Logo design</a><a class="chip" href="explore.html?q=Premiere%20Pro">Premiere Pro</a><a class="chip" href="explore.html?q=SEO">SEO</a><a class="chip" href="explore.html?q=Copywriting">Copywriting</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="categories-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="categories-title">Popular categories</h2>
+          <p>Browse freelancers by the kind of work you need done.</p>
+        </div>
+        <div class="grid grid--3 carousel reveal">
+          <a class="category" href="explore.html?category=web-development">
+            <span class="category__icon tone-1" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></span>
+            <h3>Web Development</h3>
+            <p>Websites, web apps and front-end builds.</p>
+          </a>
+          <a class="category" href="explore.html?category=graphic-design">
+            <span class="category__icon tone-6" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span>
+            <h3>Graphic Design</h3>
+            <p>Logos, branding, posters and illustration.</p>
+          </a>
+          <a class="category" href="explore.html?category=ui-ux-design">
+            <span class="category__icon tone-5" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+            <h3>UI/UX Design</h3>
+            <p>App and website interfaces, tested with users.</p>
+          </a>
+          <a class="category" href="explore.html?category=video-editing">
+            <span class="category__icon tone-4" aria-hidden="true"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+            <h3>Video Editing</h3>
+            <p>Reels, recaps, explainers and motion graphics.</p>
+          </a>
+          <a class="category" href="explore.html?category=content-writing">
+            <span class="category__icon tone-3" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></span>
+            <h3>Content Writing</h3>
+            <p>Articles, website copy and newsletters.</p>
+          </a>
+          <a class="category" href="explore.html?category=digital-marketing">
+            <span class="category__icon tone-2" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
+            <h3>Digital Marketing</h3>
+            <p>Social media, SEO, email and analytics.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" aria-labelledby="featured-title">
+      <div class="container">
+        <div class="section-head section-head--row">
+          <div>
+            <h2 id="featured-title">Featured freelancers</h2>
+            <p style="margin:0">Sample profiles that show how a Freelanzo portfolio looks.</p>
+          </div>
+          <a class="btn btn--secondary" href="explore.html">See all freelancers</a>
+        </div>
+        <div class="grid grid--4 carousel reveal" id="featured-list">
+          <p>Loading freelancers&hellip;</p>
+        </div>
+        <noscript><p>Turn on JavaScript to see the sample freelancers, or <a href="explore.html">open the Explore page</a>.</p></noscript>
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works" aria-labelledby="how-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="how-title">How Freelanzo works</h2>
+          <p>Three steps from sign-up to your first conversation with a client.</p>
+        </div>
+        <ol class="steps reveal">
+          <li class="step"><h3>Create your profile</h3><p>Add your name, title and skills so clients know what you do.</p></li>
+          <li class="step"><h3>Showcase your work</h3><p>Add projects with short descriptions and images to build your portfolio.</p></li>
+          <li class="step"><h3>Connect with opportunities</h3><p>Clients find your profile and reach out to you directly.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="container" style="padding-bottom:clamp(3.5rem,8vw,6rem)" aria-labelledby="cta-title">
+      <div class="cta-band reveal">
+        <div>
+          <h2 id="cta-title">Ready to show your work?</h2>
+          <p>Create your portfolio when accounts open in Phase 2, or look around now.</p>
+        </div>
+        <a class="btn btn--secondary" href="signup.html">Get Started</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div id="about">
+          <a class="logo" href="index.html" aria-label="Freelanzo home"><span class="logo__mark" aria-hidden="true">F</span>Freelanzo</a>
+          <p style="margin-top:1rem;max-width:28rem">Freelanzo is a portfolio platform where freelancers showcase their work and clients find the right person for the job. It is a college club project, built in phases.</p>
+        </div>
+        <nav aria-label="Quick links">
+          <h2>Quick links</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore Freelancers</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+          </ul>
+        </nav>
+        <div id="contact">
+          <h2>Contact</h2>
+          <p>Questions or feedback? Reach the club team through your college&rsquo;s club channel. Official contact details will be added before launch.</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span id="year">2026</span> Freelanzo. A college club project.</span>
+        <span>Phase 1: frontend preview with sample data</span>
+      </div>
+    </div>
+  </footer>
+  <script src="js/sample-data.js"></script>
+  <script src="js/freelancers.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
