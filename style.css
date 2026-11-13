@@ -446,3 +446,35 @@ fieldset.field { border: 0; padding: 0; margin: 0 0 1.15rem; min-width: 0; }
   .radio-cards { grid-template-columns: 1fr; }
   .grid--4 { grid-template-columns: 1fr; }
 }
+
+
+/* Phase 2 — auth state, notifications, dashboard -------------------------- */
+.form-status[data-kind="error"] { background: var(--danger-soft); color: var(--danger); }
+.form-status[data-kind="success"] { background: #def8ef; color: var(--ok); }
+.nav-menu button { font-family: inherit; font-size: 0.9rem; }
+.dashboard-main { min-height: 65vh; padding-block: clamp(2.5rem, 7vw, 5rem); }
+.dashboard-loading { background: var(--surface); padding: 2.5rem; border: 1px solid var(--line); border-radius: var(--radius-lg); }
+.dashboard-loading h1 { font-size: 1.8rem; }
+.dashboard-heading { display: flex; gap: 1.25rem; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 2.25rem; }
+.dashboard-heading h1 { font-size: clamp(2rem,4vw,3rem); }
+.dashboard-heading p, .dashboard-card p { color: var(--muted); }
+.dashboard-eyebrow { font-size: 0.85rem; font-weight: 700; color: var(--brand-dark) !important; text-transform: uppercase; letter-spacing: 0.08em; }
+.dashboard-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.dashboard-card { min-width: 0; padding: clamp(1.5rem,3vw,2rem); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.dashboard-card h1 { font-size: 1.65rem; }
+.dashboard-card h2 { font-size: 1.4rem; }
+.dashboard-card .notice { margin: 1.2rem 0; }
+.account-details { margin: 0; }
+.account-details > div { border-bottom: 1px solid var(--line); padding: 0.85rem 0; }
+.account-details > div:last-child { border-bottom: 0; }
+.account-details dt { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+.account-details dd { margin: 0.15rem 0 0; font-weight: 600; overflow-wrap: anywhere; }
+.dashboard-footnote { margin: 1.5rem 0 0; color: var(--muted); font-size: 0.9rem; }
+.dashboard-recovery { margin-inline: auto; }
+.dashboard-recovery h1 { font-size: 1.65rem; }
+.dashboard-recovery .notice { overflow-wrap: anywhere; }
+.dashboard-recovery > .btn { margin-top: 1rem; }
+.dashboard-error { max-width: 680px; margin: 0 auto; }
+.dashboard-error .btn { margin-right: 0.6rem; margin-top: 0.5rem; }
+@media (max-width: 760px) { .dashboard-grid { grid-template-columns: 1fr; } }
+@media (max-width: 420px) { .dashboard-heading > .btn { width: 100%; } }
