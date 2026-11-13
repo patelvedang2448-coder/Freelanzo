@@ -1,13 +1,21 @@
 /* Phase 2: real email/password registration + login. No passwords saved in Firestore. */
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-import {
-  doc, setDoc, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-import { auth, db } from "./firebase-config.js";
+/* Firebase imports are intentionally lazy. The form itself still runs and
+   reports a useful error even when the Firebase CDN is unavailable. */
+let firebasePromise;
+function loadFirebase() {
+  if (!firebasePromise) {
+    firebasePromise = Promise.all([
+      import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+      import("https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js"),
+      import("./firebase-config.js")
+    ]).then(([authSdk, firestoreSdk, config]) => ({ ...authSdk, ...firestoreSdk, ...config }))
+      .catch((error) => {
+        firebasePromise = null; // Let a later attempt retry a transient CDN failure.
+        throw error;
+      });
+  }
+  return firebasePromise;
+}
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const validators = {
@@ -65,6 +73,9 @@ function setBusy(form, busy, busyText) {
   button.textContent = busy ? busyText : button.dataset.originalLabel;
 }
 function explainAuthError(error) {
+  if (location.protocol === "file:")
+    return "Open Freelanzo using VS Code Live Server, not by double-clicking an HTML file.";
+  if (!error?.code) return "Firebase could not load. Check the internet connection, reload, or inspect the browser console (F12). Make sure Google's Firebase CDN is not blocked.";
   switch (error.code) {
     case "auth/email-already-in-use": return "An account already uses that email. Log in instead.";
     case "auth/invalid-email": return "That email address isn't valid.";
@@ -76,21 +87,12 @@ function explainAuthError(error) {
     case "auth/network-request-failed": return "Network error. Check your internet connection and try again.";
     case "auth/operation-not-allowed": return "Email/Password sign-in is not enabled for this Firebase project.";
     case "auth/unauthorized-domain": return "This website's domain is not authorized in Firebase Authentication settings.";
-    case "permission-denied": return "Firestore blocked the request. Make sure the supplied firestore.rules are published.";
+    case "permission-denied": return "Firestore blocked account setup. Publish the included firestore.rules in Firebase Console → Firestore Database → Rules, then use Dashboard to finish setup.";
+    case "auth/invalid-api-key": return "Firebase API key is invalid. Check js/firebase-config.js against your Firebase Console web app settings.";
+    case "auth/app-not-authorized": return "Firebase rejected this website. Check Authentication → Settings → Authorized domains.";
+    case "unavailable": return "Firestore is unavailable right now. Check your internet connection and retry.";
     default: return "Something went wrong. Please check your connection and try again.";
   }
-}
-function initPasswordToggles() {
-  document.querySelectorAll(".toggle-pw").forEach((button) => {
-    const target = document.getElementById(button.dataset.target);
-    if (!target) return;
-    button.addEventListener("click", () => {
-      const reveal = target.type === "password";
-      target.type = reveal ? "text" : "password";
-      button.textContent = reveal ? "Hide" : "Show";
-      button.setAttribute("aria-label", (reveal ? "Hide" : "Show") + " " + button.dataset.label);
-    });
-  });
 }
 function attachLiveValidation(input, validate) {
   input.addEventListener("blur", () => checkField(input, validate));
@@ -106,6 +108,7 @@ function initLogin() {
   const password = document.getElementById("login-password");
   attachLiveValidation(email, validators.email);
   attachLiveValidation(password, validators.loginPassword);
+  form.dataset.authReady = "true";
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (form.dataset.submitting === "true") return;
@@ -114,6 +117,7 @@ function initLogin() {
     if (!checkField(password, validators.loginPassword)) return password.focus();
     setBusy(form, true, "Logging in…");
     try {
+      const { signInWithEmailAndPassword, auth } = await loadFirebase();
       await signInWithEmailAndPassword(auth, email.value.trim(), password.value);
       password.value = "";
       setStatus(form, "Signed in. Opening your dashboard…", "success");
@@ -155,6 +159,7 @@ function initSignup() {
     demoCheck.removeAttribute("aria-invalid");
   });
 
+  form.dataset.authReady = "true";
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (form.dataset.submitting === "true") return;
@@ -179,6 +184,7 @@ function initSignup() {
     setBusy(form, true, "Creating account…");
     let createdUser = null;
     try {
+      const { createUserWithEmailAndPassword, updateProfile, doc, setDoc, serverTimestamp, auth, db } = await loadFirebase();
       const credential = await createUserWithEmailAndPassword(auth, email.value.trim(), password.value);
       createdUser = credential.user;
       /* Document write is awaited before sending users to the dashboard. */
@@ -217,6 +223,5 @@ function initSignup() {
   });
 }
 
-initPasswordToggles();
 initLogin();
 initSignup();
