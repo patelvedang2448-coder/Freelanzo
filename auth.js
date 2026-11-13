@@ -89,9 +89,12 @@ function explainAuthError(error) {
     case "auth/unauthorized-domain": return "This website's domain is not authorized in Firebase Authentication settings.";
     case "permission-denied": return "Firestore blocked account setup. Publish the included firestore.rules in Firebase Console → Firestore Database → Rules, then use Dashboard to finish setup.";
     case "auth/invalid-api-key": return "Firebase API key is invalid. Check js/firebase-config.js against your Firebase Console web app settings.";
+    case "auth/requests-from-referer-blocked":
+    case "auth/api-key-not-valid":
+    case "auth/internal-error": return "Firebase blocked this website's request. In Google Cloud Console → Credentials, add this site (e.g. https://YOURNAME.github.io/*) to the API key's allowed websites, and add the hostname under Firebase Authentication → Authorized domains.";
     case "auth/app-not-authorized": return "Firebase rejected this website. Check Authentication → Settings → Authorized domains.";
     case "unavailable": return "Firestore is unavailable right now. Check your internet connection and retry.";
-    default: return "Something went wrong. Please check your connection and try again.";
+    default: return "Something went wrong (" + error.code + "). Please check your connection and try again.";
   }
 }
 function attachLiveValidation(input, validate) {
